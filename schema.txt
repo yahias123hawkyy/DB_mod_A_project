@@ -1,0 +1,89 @@
+
+/////////////////////////////////////////////////////////////////////////////////
+    DDL CRETAING THE SCEHMA
+//////////////////////////////////////////////////////////////////////////////////
+
+
+CREATE TABLE User (
+  user_id INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  first_name VARCHAR(50),
+  last_name VARCHAR(50),
+  address VARCHAR(100),
+  city VARCHAR(50),
+  state VARCHAR(50),
+  country VARCHAR(50),
+  phone VARCHAR(20)
+);
+
+CREATE TABLE Category (
+  category_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Product (
+  product_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  description TEXT,
+  price DECIMAL(10, 2) NOT NULL,
+  quantity INT NOT NULL,
+  category_id INT,
+  FOREIGN KEY (category_id) REFERENCES Category(category_id)
+);
+
+CREATE TABLE Order (
+  order_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  order_date DATETIME,
+  total_amount DECIMAL(10, 2),
+  status VARCHAR(50),
+  FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+CREATE TABLE OrderItem (
+  order_item_id INT PRIMARY KEY AUTO_INCREMENT,
+  order_id INT,
+  product_id INT,
+  quantity INT,
+  price DECIMAL(10, 2),
+  FOREIGN KEY (order_id) REFERENCES Order(order_id),
+  FOREIGN KEY (product_id) REFERENCES Product(product_id)
+);
+
+CREATE TABLE Cart (
+  cart_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+CREATE TABLE CartItem (
+  cart_item_id INT PRIMARY KEY AUTO_INCREMENT,
+  cart_id INT,
+  product_id INT,
+  quantity INT,
+  FOREIGN KEY (cart_id) REFERENCES Cart(cart_id),
+  FOREIGN KEY (product_id) REFERENCES Product(product_id)
+);
+
+
+
+
+
+User (one) to Order (many): Each user can have multiple orders, but each order belongs to only one user.
+Cart (one) to CartItem (many): Each cart can have multiple cart items, but each cart item belongs to only one cart.
+Order (one) to OrderItem (many): Each order can have multiple order items, but each order item belongs to only one order.
+Category (one) to Product (many): Each category can have multiple products, but each product belongs to only one category.
+OrderItem (one) to Product (one): Each order item is associated with only one product, and each product can be included in multiple order items. 
+
+
+
+Foreign Key Relationships:
+
+Cart (user_id) references User (user_id): The user_id column in the Cart table references the user_id column in the User table.
+CartItem (cart_id) references Cart (cart_id): The cart_id column in the CartItem table references the cart_id column in the Cart table.
+Order (user_id) references User (user_id): The user_id column in the Order table references the user_id column in the User table.
+OrderItem (order_id) references Order (order_id): The order_id column in the OrderItem table references the order_id column in the Order table.
+Product (category_id) references Category (category_id): The category_id column in the Product table references the category_id column in the Category table.
+
