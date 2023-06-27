@@ -87,3 +87,10 @@ Order (user_id) references User (user_id): The user_id column in the Order table
 OrderItem (order_id) references Order (order_id): The order_id column in the OrderItem table references the order_id column in the Order table.
 Product (category_id) references Category (category_id): The category_id column in the Product table references the category_id column in the Category table.
 
+
+
+User (one) to Cart (many): One user can have multiple carts, but each cart belongs to only one user. (1 to Many)
+User (one) to Order (many): One user can have multiple orders, but each order belongs to only one user. (1 to Many)
+Cart (one) to CartItem (many): One cart can have multiple cart items, but each cart item belongs to only one cart. (1 to Many)
+Order (one) to OrderItem (many): One order can have multiple order items, but each order item belongs to only one order. (1 to Many)
+Category (one) to Product (many): One category can have multiple products, but each product belongs to only one category. (1 to Many)
