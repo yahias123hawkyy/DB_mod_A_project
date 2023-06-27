@@ -18,22 +18,17 @@ $user_Id = $_SESSION["userId"];
 
 $sql = "SELECT order_id, user_id, total_amount, order_date, status FROM `Order` where user_id= $user_Id";
 
-// Execute the query
 $result = $conn->query($sql);
 
-// Check if any rows were returned
 if ($result->num_rows > 0) {
-    // Output data of each row
     while ($row = $result->fetch_assoc()) {
-        // Access the order data
         $orderID = $row["order_id"];
         $userID = $row["user_id"];
         $price = $row["total_amount"];
         $orderDate = $row["order_date"];
         $status = $row["status"];
 
-        // Perform any desired operations with the retrieved data
-        // For example, create an HTML structure for each order
+       
         echo '<div class="order">';
         echo '<h2>Order ID: ' . $orderID . '</h2>';
         echo '<p>User ID: ' . $userID . '</p>';
@@ -46,7 +41,6 @@ if ($result->num_rows > 0) {
     echo "No orders found.";
 }
 
-// Close the connection
 $conn->close();
 ?>
 

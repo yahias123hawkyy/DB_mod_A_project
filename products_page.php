@@ -2,9 +2,6 @@
 
 session_start(); // Start the session
 
-
-
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -94,14 +91,7 @@ if (isset($_POST['add_to_cart'])) {
 
     $_SESSION["cart_id"] = $cartRow['cart_id'];
 
-
-
-
     $sql = "INSERT INTO CartItem (cart_id,product_id, quantity, name,price) VALUES ($cartID,$productID, $quantity, '$productName',$price)";
-    
-    
-    
-
     
 
     if ($conn->query($sql) == TRUE) {
